@@ -54,10 +54,16 @@ class CursoSerializer(serializers.ModelSerializer):
             'avaliacoes',
             'media_avaliacoes'
         ]
-    def get_media_avaliacoes(self, obj):
-        media = obj.avaliacoes.aggregate(Avg('avaliacao')).get('avaliacao__avg')
+    def get_media_avaliacoes(self, obj): #Obj é o curso dentro da classe avaliacao
+        media = obj.avaliacoes.aggregate(Avg('avaliacao')).get('avaliacao__avg') #função de agregadaco
 
         if media is None:
             return 0
-        return round(media *2)/2
+        return round(media *2)/2  #padrão de média utilizado 
+        
+
+
+
+
+
         
