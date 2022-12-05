@@ -1,9 +1,10 @@
 from rest_framework import generics 
 from rest_framework.generics import get_object_or_404
 
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from .permissions import ESuperUser
 
 from .models import Curso, Avaliacao
 from .serializer import CursoSerializer, AvaliacaoSerializer
@@ -47,6 +48,9 @@ API V2
 
 
 class CursoViewSet(viewsets.ModelViewSet):
+    permission_classes = (
+        ESuperUser,
+        permissions.DjangoModelPermissions,) #deve ser declarado como lista ou tupla por isso a vigula no final
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
